@@ -1,0 +1,193 @@
+---
+title: "DoAggregate: A Tool for Association Testing"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{DoAggregate: A Tool for Association Testing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r out.width="100%"}
+url <- "https://github.com/boutrys/DoAggregate/data/excalibur.png"
+knitr::include_graphics(url)
+
+```
+
+
+# Introduction
+
+DoAggregate is a tool designed to perform association testing on a cohort of patients and controls using aggregation tests. 
+
+DoAggregate is a comprehensive pipeline for aggregation testing that facilitates in-depth exploration of genetic regions across genomes and exomes. By combining detailed annotations, robust statistical frameworks and user-friendly outputs, DoAggregate improves the interpretation of genomic data.
+
+it has been based on 
+
+This vignette will guide you through the process of using DoAggregate, from submitting your cohort for analysis to interpreting the results.
+
+---
+
+## Installation
+
+To use DoAggregate, you can use the R package, or choose to install the slurm version (highly parallelized)
+
+---
+
+## Getting Started
+
+### Submitting a Cohort for Analysis
+
+To submit a cohort for association testing, follow these steps:
+
+
+---
+
+## Citing This Work
+
+Any publication that discloses findings arising from DoAggregate must cite the original publication (currently under revision). 
+
+
+---
+
+## Technical Seminar
+
+For a deeper understanding of DoAggregate, you can watch the [1-hour recording](data/Genetic_seminar_07_02_23.mp4) of the genetic seminar given by Simon Boutry. The seminar covers the theory behind DoAggregate, how to use the website, and a live demonstration of results exploration. You can also download the [PowerPoint slides](data/2022_12_20_genetic_seminar_Excalibur_Web.pptx) from the seminar.
+
+---
+
+## How to Use DoAggregate
+
+### Starting Your Submission
+
+1. **Choose How to Import Your Data**:
+   - **Import Data via gVCF**: Use this option if your .
+   - **Import Data via TSV files**: Upload your patient and control files directly. Ensure the files meet the required criteria.
+
+2. **Optional: Restrict Analysis to a Gene List**:
+   - If you want to analyze a specific set of genes, upload a gene list in TXT or TSV format.
+
+3. **Clean Your Data**:
+   - Use the coverage of each position to clean your data. This step is recommended to improve the reliability of results but can be time-consuming.
+
+4. **Advanced Parameters**:
+   - For advanced users, you can modify parameters for data cleaning and aggregation tests. However, it is recommended to use the default settings.
+
+---
+
+### Importing Your Data
+
+1. **Prepare Your TSV Files**:
+   - You must provide two TSV files: one for patients and one for controls. Both files must include the following mandatory columns:
+     - `sample`: Unique identifier for an individual.
+     - `pathology`: Unique identifier for individuals with the same pathology.
+     - `chr`: Chromosome.
+     - `pos`: Position.
+     - `reference`: Reference base.
+     - `alternative`: Alternative base.
+     - `zygosity`: Zygosity of the variant (Heterozygous or Homozygous).
+     - `gene_symbol`: Gene annotation from the HUGO database.
+     - `gnomad_wes_af`: Alternative allele frequency in the GnomAD Whole Exome Samples.
+
+2. **Upload Your Files**:
+   - Ensure the files are formatted correctly and meet the required criteria.
+
+3. **Optional: Upload a Gene List**:
+   - Provide a gene list in TXT or TSV format with one gene per line.
+
+---
+
+### Results Description
+
+
+In this section, we describe the results folders and files that **DoAggregate** will return as output. Folder names will be in **bold** (e.g., **NameOfFolder**) and optional files will be in *italic* (e.g., *exampleOfFile*). If no genes with significant aggregation are found, then the file *significant general info* will not exist in the **Gene** folder.
+
+## General
+
+This folder contains results from the cleaning process, over-representation analysis, and global information about the three levels of analysis (i.e., gene, overrepresented pathway, and overrepresented GO terms).
+
+File IDs 1 to 6 correspond to the cleaning process using the coverage matrix. 
+
+- File IDs 3 to 5 are histograms showing the number of positions badly covered per individual before and after filtering.
+- File ID 1 is a histogram showing the number of badly covered individuals per position.
+- File ID 6 is a summary table containing information on patients, controls, and variants before and after cleaning.
+
+The over-representation analysis starts by converting gene identifiers using `bitr` from **clusterProfiler**. If an input gene cannot be mapped to an ENTREZID, it is stored in File ID 28. 
+
+## GO Term Analysis
+
+Files ID 7 to 13 are generated for GO term over-representation analysis using **clusterProfiler**:
+
+- File ID 7: GO terms with adjusted p-values ≤ 0.05 are retained.
+- File ID 8: Collapsed terms from the analysis.
+- File ID 9: GO terms filtered based on similarity.
+- File IDs 11-13: Plots of the top 20 most significant GO terms.
+
+The **CC** and **MF** folders follow the same structure. Files ID 9 and 12 are specific to GO term analysis, while others are common to all databases analyzed.
+
+## Pathway Analysis
+
+- File ID 16-19 and 22: Over-representation results for pathway databases.
+- File IDs 20 and 21: Top 20 most significant pathways plotted.
+- File IDs 23-27: Pathway analysis across all databases.
+
+The results are merged and least significant pathways/GO terms mapping to the same gene list are removed (File ID 29). The top 20 terms are plotted (File ID 31). A co-occurrence matrix is built using the top 100 significant results (File ID 32, plotted in File ID 33).
+
+## Gene-Level Analysis
+
+Files ID 36-39 store results for individual genetic regions:
+
+- File ID 36: Genetic regions discarded due to filtering criteria.
+- File ID 37: Analyzed genetic regions.
+- File ID 38: Regions with Excalibur q-value ≤ 0.05.
+- File ID 39: Significant regions with more variants in patients than controls.
+
+Each genetic region is annotated with:
+
+- Number of patients/controls with at least one variant.
+- Total and unique variant counts.
+- Best q-value from Excalibur.
+- Aggregation tests that returned significant p-values.
+
+Significant genes undergo additional over-representation analysis (Folders ID 40 and 41). For significant regions in File ID 39, raw input variant data is stored in **Folder ID 42**, with one Excel file per genetic region.
+
+## Overrepresented Pathways and GO Terms
+
+These two folders contain the results of pathway and GO term aggregation tests, structured similarly to the **Gene** results (Files ID 36-39, **Folder ID 42**).
+
+
+---
+
+## FAQ
+
+### How to Create TSV Files Using Highlander
+
+1. **Select the Right Database and Columns**:
+   - Ensure your selection includes the mandatory columns.
+
+2. **Run Your Filter**:
+   - Apply the necessary filters in Highlander.
+
+3. **Download TSV Files**:
+   - Export your data to TSV format using the "Tools" option in Highlander.
+
+4. **Download Patients and Controls Separately**:
+   - Ensure you have separate files for patients and controls.
+
+---
+
+## Troubleshooting
+
+### My File Is Too Big
+
+If your input files are too large, contact [Simon Boutry](mailto:simon.boutry@uclouvain.be) for assistance.
+
+### My Job Is Not in the Queue, but I Did Not Receive Results
+
+This could indicate an error during computation or an issue with the automated email system. Contact [Simon Boutry](mailto:simon.boutry@uclouvain.be) for support.
+
+---
+
+## Contact Information
+
+For questions or issues, contact [Simon Boutry](mailto:simon.boutry@uclouvain.be).

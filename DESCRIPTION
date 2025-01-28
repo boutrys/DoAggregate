@@ -1,0 +1,54 @@
+Package: DoAggregate
+Title: A pipeline for aggregation testing for rare-variant on a gene, and pathway level
+Version: 0.0.0.9000
+Authors@R: 
+    person("Simon", "Boutry", , "Simon.boutry@epfl.ch", role = c("aut", "cre"))
+Description: DoAggregate enables users to perform aggregation tests across genes, pathways, and GO terms. It leverages Excalibur, an ensemble approach combining 36 distinct aggregation methods. The pipeline enhances data analysis 	by presenting over-representation analysis and aggregation results in detailed Excel sheets, complete with annotations and plots to facilitate nuanced interpretation and comparison.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends:
+    R (>= 3.0)
+Imports:
+    RCurl,
+    data.table,
+    mgcv,
+    stats,
+    writexl,
+    ggdendro,
+    tidyverse,
+    ggplot2,
+    stringr,
+    tidyr,
+    readr,
+    clusterProfiler,
+    org.Hs.eg.db,
+    GOSemSim,
+    ReactomePA,
+    DOSE,
+    ComplexHeatmap,
+    AssotesteR,
+    CATT,
+    iGasso,
+    WGScan,
+    REBET,
+    RVtests,
+    Cairo,
+    dplyr,
+    magrittr,
+    enrichplot,
+    readxl,
+    MASS,
+    circlize,
+    KATSP,
+    minqa,
+    CompQuadForm,
+    SKAT,
+    vcfR
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 4.3.1)
+Config/testthat/edition: 3
+VignetteBuilder: knitr
