@@ -4,7 +4,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of DoAggregate is to ...
+The goal of DoAggregate is to (see vignettes under development)...
 
 ## Installation
 
