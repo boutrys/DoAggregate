@@ -59,7 +59,7 @@ over_representation_analysis <- function(geneList = c(),
 
     ###Load MSigDB database
     pathway_overrepresentation_table <- read_tsv(paste(path_to_table, "pathway_overRepresentation.tsv", sep = "/"))
-    database_pathway <- read_tsv(paste(path_to_table, "Final_database.tsv", sep = "/"))
+    database_pathway <- data.table::fread(paste(path_to_table, "Final_database.tsv", sep = "/"))
 
 
     ###check if there is more than one gene in input and more than one that map a pathway
@@ -176,31 +176,6 @@ over_representation_analysis <- function(geneList = c(),
                 width = tmp_width,
                 height = tmp_height)
           print(enrichplot::heatplot(ego_simplified, showCategory = current_item_plot))
-          dev.off()
-
-          Cairo(paste(path_to_store_results, "Network_overrepresentation.png", sep = "/"),
-                width = 1000,
-                height = 1000)
-          p <- cnetplot(ego_simplified,
-                        showCategory = current_item_plot,
-                        categorySize="pvalue",
-                        colorEdge = TRUE,
-                        color_category='firebrick',
-                        color_gene='steelblue')
-          print(p)
-          dev.off()
-
-          Cairo(paste(path_to_store_results, "Network_Circle_overrepresentation.png", sep = "/"),
-                width = 1000,
-                height = 1000)
-          p <- cnetplot(ego_simplified,
-                        showCategory = current_item_plot,
-                        categorySize="pvalue",
-                        circular = TRUE,
-                        colorEdge = TRUE,
-                        color_category='firebrick',
-                        color_gene='steelblue')
-          print(p)
           dev.off()
 
 
@@ -632,32 +607,6 @@ over_representation_analysis <- function(geneList = c(),
           print(enrichplot::heatplot(ego_simplified, showCategory = current_item_plot))
           dev.off()
 
-          Cairo(paste(KEGG_path, "Network_KEGG_overrepresentation.png", sep = "/"),
-                width = 1000,
-                height = 1000)
-          p <- cnetplot(ego_simplified,
-                        showCategory = current_item_plot,
-                        categorySize="pvalue",
-                        colorEdge = TRUE,
-                        color_category='firebrick',
-                        color_gene='steelblue')
-          print(p)
-          dev.off()
-
-          Cairo(paste(KEGG_path, "Network_Circle_KEGG_overrepresentation.png", sep = "/"),
-                width = 1000,
-                height = 1000)
-          p <- cnetplot(ego_simplified,
-                        showCategory = current_item_plot,
-                        categorySize="pvalue",
-                        circular = TRUE,
-                        colorEdge = TRUE,
-                        color_category='firebrick',
-                        color_gene='steelblue')
-          print(p)
-          dev.off()
-
-
           if(length(to_rm) > 0){
             #Create group for GO terms with same geneID list
             for (n in 1:nbr_dup_gene_list) {
@@ -778,31 +727,6 @@ over_representation_analysis <- function(geneList = c(),
                 width = tmp_width,
                 height = tmp_height)
           print(enrichplot::heatplot(ego_simplified, showCategory = current_item_plot))
-          dev.off()
-
-          Cairo(paste(WikiPathways_path, "Network_WikiPathways_overrepresentation.png", sep = "/"),
-                width = 1000,
-                height = 1000)
-          p <- cnetplot(ego_simplified,
-                        showCategory = current_item_plot,
-                        categorySize="pvalue",
-                        colorEdge = TRUE,
-                        color_category='firebrick',
-                        color_gene='steelblue')
-          print(p)
-          dev.off()
-
-          Cairo(paste(WikiPathways_path, "Network_Circle_WikiPathways_overrepresentation.png", sep = "/"),
-                width = 1000,
-                height = 1000)
-          p <- cnetplot(ego_simplified,
-                        showCategory = current_item_plot,
-                        categorySize="pvalue",
-                        circular = TRUE,
-                        colorEdge = TRUE,
-                        color_category='firebrick',
-                        color_gene='steelblue')
-          print(p)
           dev.off()
 
 
@@ -930,33 +854,6 @@ over_representation_analysis <- function(geneList = c(),
           dev.off()
 
 
-          Cairo(paste(Reactome_path, "Network_Reactome_overrepresentation.png", sep = "/"),
-                width = 1000,
-                height = 1000)
-          p <- cnetplot(ego_simplified,
-                        showCategory = current_item_plot,
-                        categorySize="pvalue",
-                        colorEdge = TRUE,
-                        color_category='firebrick',
-                        color_gene='steelblue')
-          print(p)
-          dev.off()
-
-          Cairo(paste(Reactome_path, "Network_Circle_Reactome_overrepresentation.png", sep = "/"),
-                width = 1000,
-                height = 1000)
-          p <- cnetplot(ego_simplified,
-                        showCategory = current_item_plot,
-                        categorySize="pvalue",
-                        circular = TRUE,
-                        colorEdge = TRUE,
-                        color_category='firebrick',
-                        color_gene='steelblue')
-          print(p)
-          dev.off()
-
-
-
           if(length(to_rm) > 0){
             #Create group for terms with same geneID list
             for (n in 1:nbr_dup_gene_list) {
@@ -1078,31 +975,6 @@ over_representation_analysis <- function(geneList = c(),
           print(enrichplot::heatplot(ego_simplified, showCategory = current_item_plot))
           dev.off()
 
-          Cairo(paste(DiseaseOntology_path, "Network_DiseaseOntology_overrepresentation.png", sep = "/"),
-                width = 1000,
-                height = 1000)
-          p <- cnetplot(ego_simplified,
-                        showCategory = current_item_plot,
-                        categorySize="pvalue",
-                        colorEdge = TRUE,
-                        color_category='firebrick',
-                        color_gene='steelblue')
-          print(p)
-          dev.off()
-
-          Cairo(paste(DiseaseOntology_path, "Network_Circle_DiseaseOntology_overrepresentation.png", sep = "/"),
-                width = 1000,
-                height = 1000)
-          p <- cnetplot(ego_simplified,
-                        showCategory = current_item_plot,
-                        categorySize="pvalue",
-                        circular = TRUE,
-                        colorEdge = TRUE,
-                        color_category='firebrick',
-                        color_gene='steelblue')
-          print(p)
-          dev.off()
-
 
           if(length(to_rm) > 0){
             #Create group for terms with same geneID list
@@ -1213,32 +1085,6 @@ over_representation_analysis <- function(geneList = c(),
                 width = tmp_width,
                 height = tmp_height)
           print(enrichplot::heatplot(ego_simplified, showCategory = current_item_plot))
-          dev.off()
-
-
-          Cairo(paste(NetCanGen_path, "Network_NetCanGen_overrepresentation.png", sep = "/"),
-                width = 1000,
-                height = 1000)
-          p <- cnetplot(ego_simplified,
-                        showCategory = current_item_plot,
-                        categorySize="pvalue",
-                        colorEdge = TRUE,
-                        color_category='firebrick',
-                        color_gene='steelblue')
-          print(p)
-          dev.off()
-
-          Cairo(paste(NetCanGen_path, "Network_Circle_NetCanGen_overrepresentation.png", sep = "/"),
-                width = 1000,
-                height = 1000)
-          p <- cnetplot(ego_simplified,
-                        showCategory = current_item_plot,
-                        categorySize="pvalue",
-                        circular = TRUE,
-                        colorEdge = TRUE,
-                        color_category='firebrick',
-                        color_gene='steelblue')
-          print(p)
           dev.off()
 
 
@@ -1359,32 +1205,6 @@ over_representation_analysis <- function(geneList = c(),
                 width = tmp_width,
                 height = tmp_height)
           print(enrichplot::heatplot(ego_simplified, showCategory = current_item_plot))
-          dev.off()
-
-
-          Cairo(paste(DisGeNET_path, "Network_DisGeNET_overrepresentation.png", sep = "/"),
-                width = 1000,
-                height = 1000)
-          p <- cnetplot(ego_simplified,
-                        showCategory = current_item_plot,
-                        categorySize="pvalue",
-                        colorEdge = TRUE,
-                        color_category='firebrick',
-                        color_gene='steelblue')
-          print(p)
-          dev.off()
-
-          Cairo(paste(DisGeNET_path, "Network_Circle_DisGeNET_overrepresentation.png", sep = "/"),
-                width = 1000,
-                height = 1000)
-          p <- cnetplot(ego_simplified,
-                        showCategory = current_item_plot,
-                        categorySize="pvalue",
-                        circular = TRUE,
-                        colorEdge = TRUE,
-                        color_category='firebrick',
-                        color_gene='steelblue')
-          print(p)
           dev.off()
 
 
