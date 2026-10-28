@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use DoAggregate, please cite the preprint below."
+title: "DoAggregate: a pipeline for aggregation testing for rare-variant on a gene and pathway level"
+authors:
+  - family-names: Boutry
+    given-names: Simon
+    orcid: "https://orcid.org/0000-0002-3214-2981"
+license: MIT
+repository-code: "https://github.com/boutrys/DoAggregate"
+version: "1.0.0"

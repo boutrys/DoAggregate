@@ -1,0 +1,154 @@
+{
+  "n_cases": 26,
+  "n_controls": 25,
+  "global_info": {
+    "gene": {
+      "Nbr_region": 12969.0,
+      "Nbr_region_analyzed": 10447.0,
+      "Nbr_significant_region": 5.0,
+      "Nbr_region_not_analyzed": 2522.0,
+      "Proportion_Nbr_significant_region_VS_Nbr_region_analyzed": 0.0004786062984588877,
+      "Proportion_Nbr_region_analyzed_VS_Nbr_region": 0.8055362788187216,
+      "Nbr_position_unique": 81242.0,
+      "Nbr_position_unique_patient": 63761.0,
+      "Nbr_position_unique_control": 60184.0,
+      "Nbr_variant_unique": 81242.0,
+      "Nbr_variant_unique_patient": 63761.0,
+      "Nbr_variant_unique_control": 60184.0,
+      "Total_variant_patient": 210949.0,
+      "Total_variant_control": 196058.0
+    },
+    "over_represented_pathway": {
+      "Nbr_region": 49.0,
+      "Nbr_region_analyzed": 49.0,
+      "Nbr_significant_region": 0.0,
+      "Nbr_region_not_analyzed": 0.0,
+      "Proportion_Nbr_significant_region_VS_Nbr_region_analyzed": 0.0,
+      "Proportion_Nbr_region_analyzed_VS_Nbr_region": 1.0,
+      "Nbr_position_unique": 81242.0,
+      "Nbr_position_unique_patient": 63761.0,
+      "Nbr_position_unique_control": 60184.0,
+      "Nbr_variant_unique": 81242.0,
+      "Nbr_variant_unique_patient": 63761.0,
+      "Nbr_variant_unique_control": 60184.0,
+      "Total_variant_patient": 210949.0,
+      "Total_variant_control": 196058.0
+    },
+    "over_represented_GO": {
+      "Nbr_region": 36.0,
+      "Nbr_region_analyzed": 36.0,
+      "Nbr_significant_region": 2.0,
+      "Nbr_region_not_analyzed": 0.0,
+      "Proportion_Nbr_significant_region_VS_Nbr_region_analyzed": 0.05555555555555555,
+      "Proportion_Nbr_region_analyzed_VS_Nbr_region": 1.0,
+      "Nbr_position_unique": 81242.0,
+      "Nbr_position_unique_patient": 63761.0,
+      "Nbr_position_unique_control": 60184.0,
+      "Nbr_variant_unique": 81242.0,
+      "Nbr_variant_unique_patient": 63761.0,
+      "Nbr_variant_unique_control": 60184.0,
+      "Total_variant_patient": 210949.0,
+      "Total_variant_control": 196058.0
+    }
+  },
+  "ora_terms_total": 85,
+  "ora_terms_by_database": {
+    "DisGeNET": 48,
+    "GO-BP": 18,
+    "GO-MF": 9,
+    "GO-CC": 9,
+    "WikiPathways": 1
+  },
+  "gene_best_test_counts": {
+    "p_rebet": 29,
+    "p_rwas": 8
+  },
+  "gene_tests_applied_range": [
+    18,
+    30
+  ],
+  "gene_median_excalibur_q": 1.0,
+  "over_represented_pathway_best_test_counts": {
+    "p_rwas": 5
+  },
+  "over_represented_pathway_tests_applied_range": [
+    27,
+    28
+  ],
+  "over_represented_pathway_median_excalibur_q": 1.0,
+  "over_represented_GO_best_test_counts": {
+    "p_rebet": 5,
+    "p_rwas": 2
+  },
+  "over_represented_GO_tests_applied_range": [
+    26,
+    27
+  ],
+  "over_represented_GO_median_excalibur_q": 1.0,
+  "small_example_cleaning": {
+    "Before_cleaning": {
+      "Nbr_patient": 26.0,
+      "Nbr_control": 22.0,
+      "Nbr_unique_variant": 228.0,
+      "Total_nbr_variant": 2055.0,
+      "reliability": 0.3530701754385965
+    },
+    "after_cleaning": {
+      "Nbr_patient": 26.0,
+      "Nbr_control": 19.0,
+      "Nbr_unique_variant": 194.0,
+      "Total_nbr_variant": 1504.0,
+      "reliability": 0.4184421534936999
+    }
+  },
+  "small_example_global_info": {
+    "gene": {
+      "Nbr_region": 7.0,
+      "Nbr_region_analyzed": 7.0,
+      "Nbr_significant_region": 4.0,
+      "Nbr_region_not_analyzed": 0.0,
+      "Proportion_Nbr_significant_region_VS_Nbr_region_analyzed": 0.5714285714285714,
+      "Proportion_Nbr_region_analyzed_VS_Nbr_region": 1.0,
+      "Nbr_position_unique": 228.0,
+      "Nbr_position_unique_patient": 180.0,
+      "Nbr_position_unique_control": 194.0,
+      "Nbr_variant_unique": 228.0,
+      "Nbr_variant_unique_patient": 180.0,
+      "Nbr_variant_unique_control": 194.0,
+      "Total_variant_patient": 1094.0,
+      "Total_variant_control": 1146.0
+    },
+    "over_represented_pathway": {
+      "Nbr_region": 2.0,
+      "Nbr_region_analyzed": 2.0,
+      "Nbr_significant_region": 1.0,
+      "Nbr_region_not_analyzed": 0.0,
+      "Proportion_Nbr_significant_region_VS_Nbr_region_analyzed": 0.5,
+      "Proportion_Nbr_region_analyzed_VS_Nbr_region": 1.0,
+      "Nbr_position_unique": 228.0,
+      "Nbr_position_unique_patient": 180.0,
+      "Nbr_position_unique_control": 194.0,
+      "Nbr_variant_unique": 228.0,
+      "Nbr_variant_unique_patient": 180.0,
+      "Nbr_variant_unique_control": 194.0,
+      "Total_variant_patient": 1094.0,
+      "Total_variant_control": 1146.0
+    },
+    "over_represented_GO": {
+      "Nbr_region": NaN,
+      "Nbr_region_analyzed": NaN,
+      "Nbr_significant_region": NaN,
+      "Nbr_region_not_analyzed": NaN,
+      "Proportion_Nbr_significant_region_VS_Nbr_region_analyzed": NaN,
+      "Proportion_Nbr_region_analyzed_VS_Nbr_region": NaN,
+      "Nbr_position_unique": 228.0,
+      "Nbr_position_unique_patient": 180.0,
+      "Nbr_position_unique_control": 194.0,
+      "Nbr_variant_unique": 228.0,
+      "Nbr_variant_unique_patient": 180.0,
+      "Nbr_variant_unique_control": 194.0,
+      "Total_variant_patient": 1094.0,
+      "Total_variant_control": 1146.0
+    }
+  }
+}

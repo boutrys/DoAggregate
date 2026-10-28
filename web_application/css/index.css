@@ -1,0 +1,46 @@
+
+
+
+h3 {
+    line-height: 30px;
+    text-align: center;
+  }
+
+  #drop_file_area {
+    height: 250px;
+    border: 2px dashed #0275d8;
+    line-height: 200px;
+    text-align: center;
+    font-size: 25px;
+    background: #f9f9f9;
+  }
+
+  .drag_over {
+    color: #000;
+    border-color: #000;
+  }
+
+  .thumbnail {
+    width: 100px;
+    height: 100px;
+    padding: 2px;
+    margin: 2px;
+    border: 2px solid lightgray;
+    border-radius: 3px;
+    float: left;
+  }
+
+  #upload_file {
+    display: none;
+  }
+
+  .collapsing {
+    transition-property: width;
+    transition: linear;
+    transition-duration: 0.2s;
+}
+
+.alert{
+  font-size: 18px;
+
+}

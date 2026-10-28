@@ -1,0 +1,154 @@
+---
+title: "DoAggregate: rare-variant aggregation testing at the gene, pathway and GO-term level"
+author: "Simon Boutry"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{DoAggregate}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+## Introduction
+
+DoAggregate is a pipeline for rare-variant association testing in case-control cohorts. From an annotated list of
+variants it cleans the data, runs an over-representation analysis on the genes mutated in cases, and tests every
+gene, over-represented pathway and over-represented GO term with aggregation tests. The default test is
+Excalibur, an ensemble of 36 aggregation tests (Boutry et al., PLoS Comput Biol 2023). Results are written as
+annotated Excel files and plots.
+
+This package is the serial implementation. A parallel implementation for Slurm clusters is available in the
+`cluster/` folder of the GitHub repository (https://github.com/boutrys/DoAggregate).
+
+## Installation
+
+```{r}
+# Dependencies that are not on CRAN/Bioconductor are provided in Rpackage/dependencies/
+install.packages("Rpackage/dependencies/RVtests_1.2.tar.gz", repos = NULL, type = "source")
+
+# Bioconductor dependencies
+install.packages("BiocManager")
+BiocManager::install(c("clusterProfiler", "org.Hs.eg.db", "GOSemSim", "ReactomePA", "DOSE",
+                       "ComplexHeatmap", "enrichplot"))
+
+# DoAggregate
+install.packages("remotes")
+remotes::install_github("boutrys/DoAggregate", subdir = "Rpackage/DoAggregate")
+```
+
+## Input data
+
+Two input formats are supported.
+
+1. **Two TSV files** (cases and controls), one line per variant per sample, with the mandatory columns
+   `sample`, `chr`, `pos`, `reference`, `alternative`, `zygosity` (Heterozygous or Homozygous),
+   `gene_symbol` (HGNC symbol) and `gnomad_wes_af` (population allele frequency).
+2. **An annotated (G)VCF file** plus two text files listing case and control sample names. Use
+   `mandatory_column_mapping` to tell DoAggregate which VCF fields hold each mandatory piece of information.
+
+## Running the pipeline
+
+Example on the small public test dataset shipped with the package (1000 Genomes exomes, nine genes):
+
+```{r}
+library(DoAggregate)
+
+test_dir <- system.file("extdata", "small_test", package = "DoAggregate")
+# or the data/small_example folder of the GitHub repository
+
+main(PATH_PATIENTS = file.path(test_dir, "cases.txt"),
+     PATH_CONTROLS = file.path(test_dir, "controls.txt"),
+     PATH_GVCF = file.path(test_dir, "small_public_test_data.vcf"),
+     importation_method = 1,
+     mandatory_column_mapping = list(sample = "Indiv", chr = "CHROM", pos = "POS",
+                                     reference = "REF", alternative = "ALT", zygosity = "",
+                                     gene_symbol = "Gene.ensGene", gnomad_wes_af = "gnomad40_AF",
+                                     gt_GT = "gt_GT", gt_DP = "gt_DP"),
+     path_results = "DoAggregate_results")
+```
+
+With TSV input:
+
+```{r}
+main(PATH_PATIENTS = "patient_data.tsv",
+     PATH_CONTROLS = "control_data.tsv",
+     importation_method = 0,
+     path_results = "DoAggregate_results")
+```
+
+Main optional parameters: `rare_maf_threshold` (default 0.01), `min_var` / `max_var` (minimum and maximum
+number of unique variants for a region to be tested), `list_genes` (restrict to a gene list),
+`DO_over_representation`, `pvalue_threshold`, and the coverage-based cleaning parameters
+(`coverage_matrix_path`, `min_coverage`, `mapqv_threshold`, `remove_individual`, `remove_position`).
+See `?main` for the full list.
+
+## Output description
+
+
+In this section, we describe the results folders and files that **DoAggregate** will return as output. Folder names will be in **bold** (e.g., **NameOfFolder**) and optional files will be in *italic* (e.g., *exampleOfFile*). If no genes with significant aggregation are found, then the file *significant general info* will not exist in the **Gene** folder.
+
+## General
+
+This folder contains results from the cleaning process, over-representation analysis, and global information about the three levels of analysis (i.e., gene, overrepresented pathway, and overrepresented GO terms).
+
+File IDs 1 to 6 correspond to the cleaning process using the coverage matrix. 
+
+- File IDs 3 to 5 are histograms showing the number of positions badly covered per individual before and after filtering.
+- File ID 1 is a histogram showing the number of badly covered individuals per position.
+- File ID 6 is a summary table containing information on patients, controls, and variants before and after cleaning.
+
+The over-representation analysis starts by converting gene identifiers using `bitr` from **clusterProfiler**. If an input gene cannot be mapped to an ENTREZID, it is stored in File ID 28. 
+
+## GO Term Analysis
+
+Files ID 7 to 13 are generated for GO term over-representation analysis using **clusterProfiler**:
+
+- File ID 7: GO terms with adjusted p-values ≤ 0.05 are retained.
+- File ID 8: Collapsed terms from the analysis.
+- File ID 9: GO terms filtered based on similarity.
+- File IDs 11-13: Plots of the top 20 most significant GO terms.
+
+The **CC** and **MF** folders follow the same structure. Files ID 9 and 12 are specific to GO term analysis, while others are common to all databases analyzed.
+
+## Pathway Analysis
+
+- File ID 16-19 and 22: Over-representation results for pathway databases.
+- File IDs 20 and 21: Top 20 most significant pathways plotted.
+- File IDs 23-27: Pathway analysis across all databases.
+
+The results are merged and least significant pathways/GO terms mapping to the same gene list are removed (File ID 29). The top 20 terms are plotted (File ID 31). A co-occurrence matrix is built using the top 100 significant results (File ID 32, plotted in File ID 33).
+
+## Gene-Level Analysis
+
+Files ID 36-39 store results for individual genetic regions:
+
+- File ID 36: Genetic regions discarded due to filtering criteria.
+- File ID 37: Analyzed genetic regions.
+- File ID 38: Regions with Excalibur q-value ≤ 0.05.
+- File ID 39: Significant regions with more variants in patients than controls.
+
+Each genetic region is annotated with:
+
+- Number of patients/controls with at least one variant.
+- Total and unique variant counts.
+- Best q-value from Excalibur.
+- Aggregation tests that returned significant p-values.
+
+Significant genes undergo additional over-representation analysis (Folders ID 40 and 41). For significant regions in File ID 39, raw input variant data is stored in **Folder ID 42**, with one Excel file per genetic region.
+
+## Overrepresented Pathways and GO Terms
+
+These two folders contain the results of pathway and GO term aggregation tests, structured similarly to the **Gene** results (Files ID 36-39, **Folder ID 42**).
+
+
+---
+
+## Citation
+
+If you use DoAggregate, please cite the DoAggregate preprint (bioRxiv) and the Excalibur article:
+Boutry S, Helaers R, Lenaerts T, Vikkula M. Excalibur: A new ensemble method based on an optimal combination of
+aggregation tests for rare-variant association testing for sequencing data. PLoS Comput Biol. 2023;19(9).
