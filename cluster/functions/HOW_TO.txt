@@ -1,0 +1,12 @@
+HOW TO LAUNCH EXCALIBUR JOBS VIA COMMAND LINE 
+
+
+sbatch /work/gr-fe/sboutry/excalibur/data/functions/submit_Excalibur.sh -E "YOUR_EMAIL" -i "1" "/work/gr-fe/sboutry/excalibur/input/27_03_2024_Control1_vs_Control2_fromFVH/"
+
+
+## EXAMPLE PUBLIC DATA with GVCF with no cleaning
+sbatch /work/gr-fe/sboutry/excalibur/data/functions/submit_Excalibur.sh -A "/work/gr-fe/sboutry/excalibur/input/public_data_GCVF/cases.txt" -B "/work/gr-fe/sboutry/excalibur/input/public_data_GCVF/controls.txt" -E "YOUR_EMAIL" -G "/work/gr-fe/sboutry/excalibur/input/public_data_GCVF/small_public_test_data.vcf" -6 "Gene.ensGene" -I "1" -i "1" -q "/work/gr-fe/sboutry/excalibur/input/public_data_GCVF/"
+
+
+
+
