@@ -78,12 +78,12 @@ numbers["small_example_cleaning"] = clean.to_dict()
 sglob = pd.read_excel(SMALL / "results" / "general" / "global_info_analysis.xlsx").set_index("name_of_experiment")
 numbers["small_example_global_info"] = sglob.T.to_dict()
 
-with pd.ExcelWriter(OUT / "tables" / "Table2_summary_by_level.xlsx") as w:
+with pd.ExcelWriter(OUT / "tables" / "Table1_summary_by_level.xlsx") as w:
     table2.to_excel(w, index=False)
-table2.to_csv(OUT / "tables" / "Table2_summary_by_level.csv", index=False)
-with pd.ExcelWriter(OUT / "tables" / "Table3_significant_regions.xlsx") as w:
+table2.to_csv(OUT / "tables" / "Table1_summary_by_level.csv", index=False)
+with pd.ExcelWriter(OUT / "tables" / "Table2_significant_regions.xlsx") as w:
     table3.to_excel(w, index=False)
-table3.to_csv(OUT / "tables" / "Table3_significant_regions.csv", index=False)
+table3.to_csv(OUT / "tables" / "Table2_significant_regions.csv", index=False)
 with open(OUT / "tables" / "results_numbers.json", "w") as f:
     json.dump(numbers, f, indent=2, default=str)
 
