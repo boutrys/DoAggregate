@@ -1,8 +1,0 @@
-Level of analysis,name_genetic_region,Excalibur_qvalue,best_qvalue,best_Stat_test,Nbr_test_applied,Nbr_patient_with_mutation,Nbr_control_with_mutation,Total_nbr_variant_in_patients,Total_nbr_variant_in_controls,Nbr_unique_variant
-Gene,AKR1E2,0.0008274346299400603,3.064572703481705e-05,p_rwas,28,12,14,61,19,21
-Gene,ADK,0.00915510525769913,0.0007626333254056349,p_rebet,25,17,16,121,52,24
-Gene,GANC,0.02489130449349377,0.001538373166832089,p_rebet,24,17,12,57,21,13
-Gene,GNB2,0.03000976704404379,0.001538373166832089,p_rebet,27,8,16,44,96,35
-Gene,GIGYF1,0.03862478519459328,0.00178749983065818,p_rebet,28,11,16,47,100,43
-Over-represented GO term,endoplasmic reticulum tubular network,0.0326452755265364,0.0012555875202514,p_rebet,27,26,21,297,215,113
-Over-represented GO term,low-density lipoprotein particle binding,0.0326452755265364,0.0012555875202514,p_rebet,27,20,24,143,196,76

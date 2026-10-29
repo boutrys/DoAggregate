@@ -1,4 +1,0 @@
-Level of analysis,Regions defined,Regions tested,Regions not tested (<2 unique variants),Median aggregation tests applied per region,Excalibur q <= 0.05,...of which more variants in cases,Best single test q <= 0.05,Lowest Excalibur q
-Gene,12969,10447,2522,30.0,5,3,37,0.0008274346299400603
-Over-represented pathway,49,49,0,27.0,0,0,5,0.3181266258457969
-Over-represented GO term,36,36,0,27.0,2,1,7,0.0326452755265364
